@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const AUDIO_SRC = "/Background.mp3";
 
@@ -21,6 +21,11 @@ export function EnvelopeSection() {
     }
     setIsOpen(true);
   };
+
+  // Scroll to top on load — before paint, no visible jump
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     if (!isOpen) {

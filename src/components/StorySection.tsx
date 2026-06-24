@@ -54,65 +54,61 @@ export function StorySection() {
     offset: ["start start", "end end"],
   });
 
-  // Chapter 1: already visible at start, hold 0→0.18, out 0.18→0.21
+  // Chapter 1: already visible at start, hold 0→0.19, quick out 0.19→0.20, stay 0 until end
   const ch1Opacity = useTransform(
     scrollYProgress,
-    [0, 0.03, 0.18, 0.21],
-    [1, 1, 1, 0],
+    [0, 0.19, 0.2, 1],
+    [1, 1, 0, 0],
   );
   const ch1Y = useTransform(
     scrollYProgress,
-    [0, 0.03, 0.18, 0.21],
-    [0, 0, 0, -40],
+    [0, 0.19, 0.2, 1],
+    [0, 0, -40, -40],
   );
 
-  // Chapter 2: in 0.19→0.22, hold 0.22→0.37, out 0.37→0.40
+  // Chapter 2: quick in 0.19→0.20, hold 0.20→0.39, quick out 0.39→0.40
   const ch2Opacity = useTransform(
     scrollYProgress,
-    [0.19, 0.22, 0.37, 0.4],
-    [0, 1, 1, 0],
+    [0, 0.19, 0.2, 0.39, 0.4, 1],
+    [0, 0, 1, 1, 0, 0],
   );
   const ch2Y = useTransform(
     scrollYProgress,
-    [0.19, 0.22, 0.37, 0.4],
-    [40, 0, 0, -40],
+    [0, 0.19, 0.2, 0.39, 0.4, 1],
+    [40, 40, 0, 0, -40, -40],
   );
 
-  // Chapter 3: in 0.38→0.41, hold 0.41→0.56, out 0.56→0.59
+  // Chapter 3: quick in 0.39→0.40, hold 0.40→0.59, quick out 0.59→0.60
   const ch3Opacity = useTransform(
     scrollYProgress,
-    [0.38, 0.41, 0.56, 0.59],
-    [0, 1, 1, 0],
+    [0, 0.39, 0.4, 0.59, 0.6, 1],
+    [0, 0, 1, 1, 0, 0],
   );
   const ch3Y = useTransform(
     scrollYProgress,
-    [0.38, 0.41, 0.56, 0.59],
-    [40, 0, 0, -40],
+    [0, 0.39, 0.4, 0.59, 0.6, 1],
+    [40, 40, 0, 0, -40, -40],
   );
 
-  // Chapter 4: in 0.57→0.60, hold 0.60→0.75, out 0.75→0.78
+  // Chapter 4: quick in 0.59→0.60, hold 0.60→0.79, quick out 0.79→0.80
   const ch4Opacity = useTransform(
     scrollYProgress,
-    [0.57, 0.6, 0.75, 0.78],
-    [0, 1, 1, 0],
+    [0, 0.59, 0.6, 0.79, 0.8, 1],
+    [0, 0, 1, 1, 0, 0],
   );
   const ch4Y = useTransform(
     scrollYProgress,
-    [0.57, 0.6, 0.75, 0.78],
-    [40, 0, 0, -40],
+    [0, 0.59, 0.6, 0.79, 0.8, 1],
+    [40, 40, 0, 0, -40, -40],
   );
 
-  // Chapter 5: in 0.76→0.79, hold 0.79→0.97, stay visible 0.97→1
+  // Chapter 5: quick in 0.79→0.80, hold 0.80→1, stay visible
   const ch5Opacity = useTransform(
     scrollYProgress,
-    [0.76, 0.79, 0.97, 1],
-    [0, 1, 1, 1],
+    [0, 0.79, 0.8, 1],
+    [0, 0, 1, 1],
   );
-  const ch5Y = useTransform(
-    scrollYProgress,
-    [0.76, 0.79, 0.97, 1],
-    [40, 0, 0, 0],
-  );
+  const ch5Y = useTransform(scrollYProgress, [0, 0.79, 0.8, 1], [40, 40, 0, 0]);
 
   const opacities = [
     ch1Opacity,
@@ -126,28 +122,28 @@ export function StorySection() {
   // Image opacity per chapter
   const img1Opacity = useTransform(
     scrollYProgress,
-    [0, 0.03, 0.18, 0.21],
-    [1, 1, 1, 0],
+    [0, 0.19, 0.2, 1],
+    [1, 1, 0, 0],
   );
   const img2Opacity = useTransform(
     scrollYProgress,
-    [0.19, 0.22, 0.37, 0.4],
-    [0, 1, 1, 0],
+    [0, 0.19, 0.2, 0.39, 0.4, 1],
+    [0, 0, 1, 1, 0, 0],
   );
   const img3Opacity = useTransform(
     scrollYProgress,
-    [0.38, 0.41, 0.56, 0.59],
-    [0, 1, 1, 0],
+    [0, 0.39, 0.4, 0.59, 0.6, 1],
+    [0, 0, 1, 1, 0, 0],
   );
   const img4Opacity = useTransform(
     scrollYProgress,
-    [0.57, 0.6, 0.75, 0.78],
-    [0, 1, 1, 0],
+    [0, 0.59, 0.6, 0.79, 0.8, 1],
+    [0, 0, 1, 1, 0, 0],
   );
   const img5Opacity = useTransform(
     scrollYProgress,
-    [0.76, 0.79, 0.97, 1],
-    [0, 1, 1, 1],
+    [0, 0.79, 0.8, 1],
+    [0, 0, 1, 1],
   );
   const imgOpacities = [
     img1Opacity,

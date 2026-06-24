@@ -1,6 +1,6 @@
 {
   "name": "solid-wedding",
-  "version": "1.0.0-fe",
+  "version": "1.0.1-fe",
   "private": true,
   "scripts": {
     "dev": "next dev",
