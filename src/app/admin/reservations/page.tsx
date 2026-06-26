@@ -60,7 +60,6 @@ function ReservationsTable({
             <th className="py-3 pr-4 font-bold">Kehadiran</th>
             <th className="py-3 pr-4 font-bold">Lokasi</th>
             <th className="py-3 pr-4 font-bold">Ucapan</th>
-            <th className="py-3 pr-4 font-bold">Invitation</th>
             <th className="py-3 pr-4 font-bold">Waktu</th>
             <th className="py-3 font-bold" aria-label="Aksi" />
           </tr>
@@ -89,9 +88,6 @@ function ReservationsTable({
                 <p className="line-clamp-2 leading-[20px]">
                   {reservation.message}
                 </p>
-              </td>
-              <td className="max-w-[170px] py-4 pr-4 font-semibold text-[#6F625A]">
-                {reservation.invitationName || reservation.invitationSlug || "-"}
               </td>
               <td className="py-4 pr-4 font-semibold text-[#6F625A]">
                 {formatAdminDate(reservation.createdAt)}
@@ -160,7 +156,9 @@ export default async function ReservationsPage({
       <div className="mt-5 grid gap-3">
         <AdminNotice
           type="warning"
-          message={!databaseConfigured ? "DATABASE_URL belum dikonfigurasi." : null}
+          message={
+            !databaseConfigured ? "DATABASE_URL belum dikonfigurasi." : null
+          }
         />
         <AdminNotice type="error" message={dataError || error} />
       </div>
