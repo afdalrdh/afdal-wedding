@@ -1,36 +1,15 @@
-import { ClosingSection } from "@/components/ClosingSection";
-import { CountdownSection } from "@/components/CountdownSection";
-import { EnvelopeSection } from "@/components/EnvelopeSection";
-import { GallerySection } from "@/components/GallerySection";
-import { GiftSection } from "@/components/GiftSection";
-import { HeroSection } from "@/components/HeroSection";
-import { InvitationSection } from "@/components/InvitationSection";
-import { RSVPSection } from "../components/RSVPSection";
-import { StorySection } from "@/components/StorySection";
-import { VenueSection } from "@/components/VenueSection";
+import { WeddingPage } from "@/components/WeddingPage";
+import { normalizeSlug, pickSearchParam } from "@/lib/wedding-validation";
 
-export default function Home() {
-  return (
-    <main className="bg-[#f5f0e8] text-neutral-950">
-      <HeroSection />
-
-      <InvitationSection />
-
-      <StorySection />
-
-      <CountdownSection />
-
-      <VenueSection />
-
-      <GallerySection />
-
-      <RSVPSection />
-
-      <GiftSection />
-
-      <ClosingSection />
-
-      <EnvelopeSection />
-    </main>
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const params = await searchParams;
+  const invitationSlug = normalizeSlug(
+    pickSearchParam(params.to) || pickSearchParam(params.invite),
   );
+
+  return <WeddingPage invitationSlug={invitationSlug} />;
 }

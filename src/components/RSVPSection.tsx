@@ -1,51 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import type { Attendance, ReservationRecord } from "@/lib/wedding-types";
 
-type Attendance = "Hadir" | "Tidak Hadir";
-
-interface Wish {
-  id: number;
-  name: string;
-  attendance: Attendance;
-  location: string;
-  message: string;
+interface RSVPSectionProps {
+  initialWishes: ReservationRecord[];
+  initialAttendanceCount: number;
+  initialReservationCount: number;
+  invitationSlug?: string | null;
+  invitationName?: string | null;
+  dataUnavailable?: boolean;
 }
-
-const initialWishes: Wish[] = [
-  {
-    id: 1,
-    name: "Andre Maulana",
-    attendance: "Hadir",
-    location: "Bandung",
-    message:
-      "Selamat ya Afdal dan Putri! Semoga menjadi keluarga yang harmonis selamanya. Sampai ketemu di hari H!",
-  },
-  {
-    id: 2,
-    name: "Reni",
-    attendance: "Tidak Hadir",
-    location: "Jakarta",
-    message:
-      "Happy Wedding Day Afdal temen smk kuuuuuiuu, semoga diberkati pernikahan kalian, maafkan gabisa dateng ❤️❤️❤️",
-  },
-  {
-    id: 3,
-    name: "Ziaaa",
-    attendance: "Tidak Hadir",
-    location: "Cimahi",
-    message:
-      "Afdalll barakallah selamatt yaaa sayanggggkuuu 😍 sakinah mawaddah warahmah aamiin.",
-  },
-  {
-    id: 4,
-    name: "Mpiww",
-    attendance: "Hadir",
-    location: "Bandung",
-    message:
-      "Selamat ya Afdal dan Putri! Semoga menjadi keluarga yang harmonis selamanya. Sampai ketemu di hari H!",
-  },
-];
 
 function AttendanceBadge({ attendance }: { attendance: Attendance }) {
   const isPresent = attendance === "Hadir";
@@ -76,32 +41,88 @@ function LocationIcon() {
   );
 }
 
-export function RSVPSection() {
+function formatDate(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+
+  return new Intl.DateTimeFormat("id-ID", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }).format(date);
+}
+
+export function RSVPSection({
+  initialWishes,
+  initialAttendanceCount,
+  initialReservationCount,
+  invitationSlug,
+  invitationName,
+  dataUnavailable = false,
+}: RSVPSectionProps) {
   const [name, setName] = useState("");
   const [attendance, setAttendance] = useState<Attendance>("Hadir");
   const [location, setLocation] = useState("");
   const [message, setMessage] = useState("");
-  const [wishes, setWishes] = useState<Wish[]>(initialWishes);
+  const [wishes, setWishes] = useState<ReservationRecord[]>(initialWishes);
+  const [attendanceCount, setAttendanceCount] = useState(initialAttendanceCount);
+  const [reservationCount, setReservationCount] = useState(initialReservationCount);
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [statusMessage, setStatusMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const visibleWishes = useMemo(() => wishes.slice(0, 6), [wishes]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim() || !message.trim()) return;
+    if (!name.trim() || !message.trim() || isSubmitting) return;
 
-    setWishes((current) => [
-      {
-        id: Date.now(),
-        name: name.trim(),
-        attendance,
-        location: location.trim() || "Lokasi tidak dicantumkan",
-        message: message.trim(),
-      },
-      ...current,
-    ]);
+    setIsSubmitting(true);
+    setStatus("idle");
+    setStatusMessage("");
 
-    setName("");
-    setAttendance("Hadir");
-    setLocation("");
-    setMessage("");
+    try {
+      const response = await fetch("/api/reservations", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name,
+          attendance,
+          location,
+          message,
+          invitationSlug,
+          invitationName,
+        }),
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(result.error || "Reservasi belum bisa disimpan.");
+      }
+
+      const reservation = result.reservation as ReservationRecord;
+      setWishes((current) => [reservation, ...current]);
+      setReservationCount((current) => current + 1);
+      if (reservation.attendance === "Hadir") {
+        setAttendanceCount((current) => current + 1);
+      }
+
+      setName("");
+      setAttendance("Hadir");
+      setLocation("");
+      setMessage("");
+      setStatus("success");
+      setStatusMessage("Terima kasih, ucapanmu sudah tersimpan.");
+    } catch (error) {
+      setStatus("error");
+      setStatusMessage(
+        error instanceof Error
+          ? error.message
+          : "Reservasi belum bisa disimpan.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -124,7 +145,7 @@ export function RSVPSection() {
 
           <div className="mt-6 h-px w-[58px] bg-[#E8C8C7]" />
 
-          <div className="mt-6 grid grid-cols-2 gap-4 md:gap-5">
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 md:gap-5">
             <label className="block">
               <span className="mb-2 block font-sans text-[12px] font-bold uppercase leading-[16px] tracking-[1px] text-[#565156]">
                 Nama
@@ -178,26 +199,50 @@ export function RSVPSection() {
             />
           </label>
 
+          {statusMessage && (
+            <p
+              className={`mt-4 rounded-[10px] px-4 py-3 font-sans text-[13px] font-semibold leading-[20px] ${
+                status === "success"
+                  ? "bg-[#E8F7EE] text-[#2E7B57]"
+                  : "bg-[#FFF0F0] text-[#9E3E3E]"
+              }`}
+            >
+              {statusMessage}
+            </p>
+          )}
+
           <button
             type="submit"
-            className="mt-6 h-[58px] w-full rounded-[12px] bg-[#5B0F0F] font-sans text-[15px] font-bold uppercase leading-[22px] tracking-[3px] text-white shadow-[0_14px_25px_rgba(91,15,15,0.22)] transition hover:bg-[#4A0E0E] active:translate-y-px md:text-[16px]"
+            disabled={isSubmitting}
+            className="mt-6 h-[58px] w-full rounded-[12px] bg-[#5B0F0F] font-sans text-[15px] font-bold uppercase leading-[22px] tracking-[3px] text-white shadow-[0_14px_25px_rgba(91,15,15,0.22)] transition hover:bg-[#4A0E0E] active:translate-y-px disabled:cursor-not-allowed disabled:bg-[#8C6E6E] md:text-[16px]"
           >
-            Kirim Wish
+            {isSubmitting ? "Mengirim..." : "Kirim Wish"}
           </button>
         </form>
 
         <div>
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center justify-between gap-4">
             <h3 className="font-sans text-[18px] font-bold leading-[24px] text-[#565156]">
               List Ucapan
             </h3>
-            <span className="rounded-full bg-[#F4EDE9] px-3 py-2 font-sans text-[12px] font-bold leading-none text-[#8D4327]">
-              124 Kehadiran
-            </span>
+            <div className="flex flex-wrap gap-2">
+              <span className="rounded-full bg-[#F4EDE9] px-3 py-2 font-sans text-[12px] font-bold leading-none text-[#8D4327]">
+                {attendanceCount} Kehadiran
+              </span>
+              <span className="rounded-full bg-white px-3 py-2 font-sans text-[12px] font-bold leading-none text-[#6F6B75] shadow-[0_2px_10px_rgba(31,28,11,0.08)]">
+                {reservationCount} Ucapan
+              </span>
+            </div>
           </div>
 
+          {dataUnavailable && (
+            <p className="mt-5 rounded-[14px] border border-[#E8C8C7] bg-white px-5 py-4 font-sans text-[14px] font-semibold leading-[22px] text-[#8D4327]">
+              Data ucapan belum bisa dimuat.
+            </p>
+          )}
+
           <div className="mt-5 grid gap-4">
-            {wishes.slice(0, 4).map((wish) => (
+            {visibleWishes.map((wish) => (
               <article
                 key={wish.id}
                 className="rounded-[18px] bg-white px-5 py-4 shadow-[0_4px_18px_rgba(31,28,11,0.05)] md:px-6 md:py-[18px]"
@@ -209,9 +254,14 @@ export function RSVPSection() {
                   <AttendanceBadge attendance={wish.attendance} />
                 </div>
 
-                <p className="mt-1 flex items-center gap-1.5 font-sans text-[12px] font-medium leading-[18px] text-[#9B8E8A]">
+                <p className="mt-1 flex flex-wrap items-center gap-1.5 font-sans text-[12px] font-medium leading-[18px] text-[#9B8E8A]">
                   <LocationIcon />
-                  {wish.location}
+                  {wish.location || "Lokasi tidak dicantumkan"}
+                  {formatDate(wish.createdAt) && (
+                    <span className="pl-1 text-[#B0A5A1]">
+                      {formatDate(wish.createdAt)}
+                    </span>
+                  )}
                 </p>
 
                 <p className="mt-1.5 font-sans text-[15px] font-normal leading-[24px] text-[#6F6B75] md:text-[16px] md:leading-[25px]">
@@ -221,29 +271,11 @@ export function RSVPSection() {
             ))}
           </div>
 
-          <nav
-            aria-label="Navigasi halaman ucapan"
-            className="mt-5 flex items-center justify-center gap-4 font-sans text-[15px] font-medium leading-[22px] text-[#5B0F0F] md:mt-6 md:gap-5 md:text-[16px] md:leading-[24px]"
-          >
-            <button type="button" className="inline-flex items-center gap-2">
-              <span aria-hidden>‹</span>
-              Previous
-            </button>
-            <button type="button">1</button>
-            <button
-              type="button"
-              aria-current="page"
-              className="flex h-9 w-9 items-center justify-center rounded-[8px] bg-white shadow-[0_2px_10px_rgba(31,28,11,0.12)] md:h-10 md:w-10"
-            >
-              2
-            </button>
-            <button type="button">3</button>
-            <span>...</span>
-            <button type="button" className="inline-flex items-center gap-2">
-              Next
-              <span aria-hidden>›</span>
-            </button>
-          </nav>
+          {!visibleWishes.length && !dataUnavailable && (
+            <p className="mt-5 rounded-[14px] bg-white px-5 py-4 font-sans text-[14px] font-semibold leading-[22px] text-[#6F6B75] shadow-[0_4px_18px_rgba(31,28,11,0.05)]">
+              Belum ada ucapan.
+            </p>
+          )}
         </div>
       </div>
     </section>

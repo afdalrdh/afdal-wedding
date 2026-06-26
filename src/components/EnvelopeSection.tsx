@@ -6,7 +6,13 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
 const AUDIO_SRC = "/Background.mp3";
 
-export function EnvelopeSection() {
+interface EnvelopeSectionProps {
+  guestName?: string;
+}
+
+export function EnvelopeSection({
+  guestName = "Aldy Akbarrizky",
+}: EnvelopeSectionProps) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -80,8 +86,8 @@ export function EnvelopeSection() {
                 Kepada Yth. Bapak/Ibu/Saudara/i
               </p>
 
-              <h1 className="text-center font-serif text-[32px] font-normal italic leading-none text-white sm:text-[40px] md:text-[48px]">
-                Aldy Akbarrizky
+              <h1 className="px-2 text-center font-serif text-[clamp(30px,8vw,48px)] font-normal italic leading-[1.05] text-white">
+                {guestName}
               </h1>
 
               <button
