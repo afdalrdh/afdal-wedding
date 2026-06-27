@@ -147,11 +147,12 @@ export function HeroSection() {
       />
 
       <Image
-        src="/Afdan dan Putri.png"
+        src="/Afdan dan Putri.webp"
         alt=""
         fill
         priority
         sizes="100vw"
+        quality={90}
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-40 object-cover object-center"
       />
