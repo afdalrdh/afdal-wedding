@@ -151,8 +151,8 @@ export function HeroSection() {
         alt=""
         fill
         priority
+        unoptimized
         sizes="100vw"
-        quality={90}
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-40 object-cover object-center"
       />
