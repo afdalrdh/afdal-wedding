@@ -237,11 +237,23 @@ export function GiftSection() {
               <h3 className="font-serif text-[32px] font-semibold leading-none text-[#4A0E0E]">
                 Kirim ke Rumah
               </h3>
-              <p className="mt-4 font-sans text-[16px] font-normal leading-[28px] text-[#544341]">
-                Kp Nambo RT 01 RW 02 Desa Batukarut Kecamatan Arjasari Kabupaten
-                Bandung 40379. Rumah Pak Diki (Masuk gang SMP Handayani 1
-                Banjaran)
+              <p className="mt-4 font-sans text-[16px] font-normal leading-[26px] text-[#544341]">
+                Apabila Anda berkenan memberikan tanda kasih, kami telah menyiapkan daftar hadiah yang dapat dipilih melalui tombol di bawah ini.
               </p>
+              <a
+                href="https://www.myregistry.com/giftlist/afput-wedding"
+                target="_blank"
+                rel="noreferrer"
+                className="mt-7 flex w-full items-center justify-center gap-2 rounded-xl bg-[#4A0E0E] px-6 py-4 font-sans text-[13px] font-bold uppercase tracking-[1.5px] text-white transition hover:bg-[#3A0B0B]"
+              >
+                Pilih Hadiah
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="8" width="18" height="4" rx="1"></rect>
+                  <path d="M12 8v13"></path>
+                  <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"></path>
+                  <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path>
+                </svg>
+              </a>
             </div>
           </article>
         </div>
