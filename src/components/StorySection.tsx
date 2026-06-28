@@ -204,7 +204,7 @@ export function StorySection() {
     <section
       id="story"
       ref={containerRef}
-      className="relative h-[300vh] bg-[#fbfaf7]"
+      className="relative h-[600vh] bg-[#fbfaf7] md:h-[400vh]"
     >
       <div className="story-sticky sticky top-0 flex h-[100svh] items-start overflow-hidden px-0 py-0 md:h-screen md:items-center md:px-16 md:py-16">
         <div className="story-shell w-full">

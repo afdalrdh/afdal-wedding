@@ -59,7 +59,7 @@ export function VenueSection() {
                 <p className="font-serif text-[18px] font-normal leading-[28px] tracking-normal text-[#4A0E0E]">
                   {schedule.label}
                 </p>
-                <p className="mt-4 font-sans text-[16px] font-semibold leading-[24px] tracking-normal text-[#1F1C0B]">
+                <p className="mt-4 font-sans text-[22px] font-semibold leading-[24px] tracking-normal text-[#1F1C0B]">
                   {schedule.time}
                 </p>
               </div>
@@ -70,7 +70,7 @@ export function VenueSection() {
             href={mapsUrl}
             target="_blank"
             rel="noreferrer"
-            className="mt-8 inline-flex h-[58px] w-[210px] items-center justify-center gap-3 rounded-[8px] bg-[#F4EFE8] px-6 font-sans text-[16px] font-medium leading-[24px] tracking-normal text-black transition-colors hover:bg-[#FBFBF9]"
+            className="mt-8 inline-flex items-center justify-center gap-3 rounded-[14px] bg-[#F4EFE8] px-[clamp(18px,4vw,29px)] py-[clamp(10px,2vw,15px)] font-sans text-[clamp(15px,2.8vw,21px)] font-normal leading-none tracking-normal text-[#4A0E0E] transition-colors hover:bg-[#FBFBF9] md:rounded-[9px] md:px-6 md:py-3 md:text-[17px]"
           >
             Lihat di Maps
             <svg

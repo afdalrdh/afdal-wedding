@@ -168,7 +168,7 @@ export function InvitationSection() {
                   src={profile.image}
                   alt={profile.imageAlt}
                   fill
-                  sizes="150px"
+                  sizes="300px"
                   className="scale-200 object-cover"
                   style={{ objectPosition: profile.position }}
                 />

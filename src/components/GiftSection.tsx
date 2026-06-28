@@ -105,7 +105,7 @@ function BankCard({
                 aria-hidden="true"
                 className="self-end"
               />
-              <p className="mt-1 font-inter text-[32px] font-semibold leading-none tracking-normal text-white">
+              <p className="mt-1 font-inter text-[24px] md:text-[32px] font-semibold leading-none tracking-normal text-white">
                 BANK MANDIRI
               </p>
             </div>
@@ -123,7 +123,7 @@ function BankCard({
                 height={36}
                 aria-hidden="true"
               />
-              <p className="font-inter text-[32px] font-semibold leading-none tracking-normal text-white">
+              <p className="font-inter text-[24px] md:text-[32px] font-semibold leading-none tracking-normal text-white">
                 BANK BRI
               </p>
             </div>
@@ -135,7 +135,7 @@ function BankCard({
       </div>
 
       <div className="mt-8 flex items-center gap-3 md:mt-10 lg:mt-7 2xl:mt-10">
-        <p className="font-inter text-[24.95px] font-semibold leading-none tracking-normal text-white md:text-[34px] lg:text-[30px] 2xl:text-[34px]">
+        <p className="font-inter text-[22px] font-semibold leading-none tracking-normal text-white md:text-[34px] lg:text-[30px] 2xl:text-[34px]">
           {account.number}
         </p>
         <button
@@ -200,7 +200,7 @@ export function GiftSection() {
           Wedding Gift
         </p>
 
-        <h2 className="mt-4 max-w-[780px] font-serif text-[44px] font-semibold leading-none tracking-normal text-[#4A0E0E] md:text-[64px]">
+        <h2 className="mt-4 max-w-[780px] font-serif text-[42px] font-semibold leading-none tracking-normal text-[#4A0E0E] md:text-[64px]">
           Berbagi Kebahagiaan
         </h2>
 

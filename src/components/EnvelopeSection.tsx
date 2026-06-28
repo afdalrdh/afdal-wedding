@@ -127,7 +127,7 @@ export function EnvelopeSection({
             <p className="relative z-10 mt-6 font-sans text-[14px] font-normal leading-[26px] tracking-normal text-white/90 md:text-[16px]">
               Made With <span className="px-1 text-[18px] leading-none">♥</span>{" "}
               <a
-                href="https://solidtechno.id"
+                href="https://solidtechno.com"
                 target="_blank"
                 rel="noreferrer"
                 className="underline-offset-4 hover:underline"

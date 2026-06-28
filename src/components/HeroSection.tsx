@@ -167,7 +167,7 @@ export function HeroSection() {
             height="38"
             viewBox="0 0 28 38"
             fill="none"
-            className="h-[24px] w-[18px] shrink-0 text-white md:h-[28px] md:w-5"
+            className="h-[24px] w-[18px] shrink-0 text-white md:h-[28px] md:w-5 animate-float-subtle"
             aria-hidden="true"
           >
             <path

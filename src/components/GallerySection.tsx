@@ -77,7 +77,7 @@ export function GallerySection() {
           Our Memories
         </p>
 
-        <h2 className="mx-auto mt-6 max-w-[340px] text-left font-serif text-[34px] font-semibold leading-[1.18] tracking-normal text-[#4A0E0E] md:max-w-none md:text-center md:text-[48px] md:leading-none">
+        <h2 className="mx-auto mt-6 max-w-[340px] text-center font-serif text-[34px] font-semibold leading-[1.18] tracking-normal text-[#4A0E0E] md:max-w-none md:text-center md:text-[48px] md:leading-none">
           Kenangan yang kami abadikan.
         </h2>
 

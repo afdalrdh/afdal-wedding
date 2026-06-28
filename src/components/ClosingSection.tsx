@@ -35,7 +35,7 @@ export function ClosingSection() {
         <p className="font-sans text-[18px] font-normal leading-[26px] tracking-normal text-white md:text-[19px]">
           Made With <span className="px-2 text-[22px] leading-none">♥</span>
           <a
-            href="https://solidtechno.id"
+            href="https://solidtechno.com"
             target="_blank"
             rel="noreferrer"
             className="underline-offset-4 hover:underline md:no-underline md:hover:underline"
