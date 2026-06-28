@@ -280,11 +280,11 @@ body {
         font-size: 20px;
     }
 
-    #memories > div {
+    #memories > div:first-child {
         max-width: 1264px;
     }
 
-    #memories > div > p {
+    #memories > div:first-child > p {
         font-size: 17px;
     }
 

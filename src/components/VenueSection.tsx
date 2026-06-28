@@ -66,30 +66,62 @@ export function VenueSection() {
             ))}
           </div>
 
-          <a
-            href={mapsUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-8 inline-flex items-center justify-center gap-3 rounded-[14px] bg-[#F4EFE8] px-[clamp(18px,4vw,29px)] py-[clamp(10px,2vw,15px)] font-sans text-[clamp(15px,2.8vw,21px)] font-normal leading-none tracking-normal text-[#4A0E0E] transition-colors hover:bg-[#FBFBF9] md:rounded-[9px] md:px-6 md:py-3 md:text-[17px]"
-          >
-            Lihat di Maps
+          <div className="mx-auto mt-8 flex max-w-[560px] items-start gap-3 rounded-[12px] bg-[#EDE9E0] p-4 text-left font-sans text-[16px] leading-relaxed text-[#544341] md:mx-0">
             <svg
-              width="19"
-              height="19"
-              viewBox="0 0 19 19"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
               fill="none"
-              aria-hidden="true"
-              className="shrink-0"
+              stroke="#4A0E0E"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="mt-0.5 shrink-0"
             >
-              <path
-                d="M5.25 13.75L13.75 5.25M8 5.25H13.75V11"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
             </svg>
-          </a>
+            <p>
+              Bagi tamu undangan yang membawa kendaraan, area parkir tersedia di{" "}
+              <a
+                href="https://maps.app.goo.gl/82RiG7TFUyfDUEHk9"
+                target="_blank"
+                rel="noreferrer"
+                className="font-bold text-[#4A0E0E] underline transition-colors hover:text-[#2d0808]"
+              >
+                SMA Bhakti Mulya
+              </a>
+              .
+            </p>
+          </div>
+
+          <div className="mt-8 flex flex-col items-center md:items-start">
+            <a
+              href={mapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center gap-3 rounded-[9px] bg-[#4A0E0E] px-[clamp(18px,4vw,29px)] py-[clamp(10px,2vw,15px)] font-sans text-[clamp(15px,2.8vw,21px)] font-normal leading-none tracking-normal text-white transition-colors hover:bg-[#3A0B0B] md:px-6 md:py-3 md:text-[17px]"
+            >
+              Lihat di Maps
+              <svg
+                width="19"
+                height="19"
+                viewBox="0 0 19 19"
+                fill="none"
+                aria-hidden="true"
+                className="shrink-0"
+              >
+                <path
+                  d="M5.25 13.75L13.75 5.25M8 5.25H13.75V11"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </section>
