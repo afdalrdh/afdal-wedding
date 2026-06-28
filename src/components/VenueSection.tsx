@@ -59,7 +59,7 @@ export function VenueSection() {
                 <p className="font-serif text-[18px] font-normal leading-[28px] tracking-normal text-[#4A0E0E]">
                   {schedule.label}
                 </p>
-                <p className="mt-4 font-sans text-[22px] font-semibold leading-[24px] tracking-normal text-[#1F1C0B]">
+                <p className="mt-4 font-sans text-[18px] font-semibold leading-[24px] tracking-normal text-[#1F1C0B]">
                   {schedule.time}
                 </p>
               </div>
