@@ -178,7 +178,7 @@ function getCount(row: Row | undefined) {
   return toNumber(row?.total);
 }
 
-export async function getPublicReservations(limit = 4) {
+export async function getPublicReservations(limit = 100) {
   if (!isDatabaseConfigured()) return [];
 
   const sql = await requireSqlClient();
@@ -186,7 +186,7 @@ export async function getPublicReservations(limit = 4) {
     SELECT id, name, attendance, location, message, invitation_slug, invitation_name, created_at
     FROM reservations
     ORDER BY created_at DESC
-    LIMIT ${Math.max(1, Math.min(limit, 24))}
+    LIMIT ${Math.max(1, Math.min(limit, 1000))}
   `;
 
   return rows.map(mapReservation);
